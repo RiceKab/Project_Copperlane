@@ -69,7 +69,7 @@
           let formData = new FormData()
           formData.append('name', this.name)
           formData.append('file', this.selectedFile)
-          axios.post(this.API + '/audio/upload', formData, {withCredentials: true})
+          axios.post(this.API + 'audio/upload', formData, {withCredentials: true})
             .then((result) => {
               this.onClose()
             })

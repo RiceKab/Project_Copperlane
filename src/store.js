@@ -69,11 +69,11 @@ export const store = new Vuex.Store({
       state.socket.emit('library-req')
     },
     async auth ({dispatch, commit, state}, credentials) {
-      await axios.post(state.API_ENDPOINT + '/auth', credentials, {withCredentials: true})
+      await axios.post(state.API_ENDPOINT + 'auth', credentials, {withCredentials: true})
       state.socket.emit('auth', credentials)
     },
     async logout ({commit, state}) {
-      await axios.post(state.API_ENDPOINT + '/logout', null, {withCredentials: true})
+      await axios.post(state.API_ENDPOINT + 'logout', null, {withCredentials: true})
       commit('setUser', null)
     },
     async selectSong ({state}, request) {
