@@ -55,6 +55,9 @@
       },
       fileInputChanged (evt) {
         this.selectedFile = evt.target.files[0]
+        if (this.name === '') {
+          this.name = this.selectedFile.name.replace(/\.[^/.]+$/, '')
+        }
       },
       clearForm () {
         this.$refs.uploadForm.reset()
