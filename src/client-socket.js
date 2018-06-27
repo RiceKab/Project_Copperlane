@@ -16,7 +16,10 @@ export const createSocket = (store, socketEndpoint) => {
     // store.dispatch('loadLibrary')  // Server already sends this upon auth.
   })
   socket.on('library', (data) => {
-    store.commit('updateLibrary', data)
+    store.dispatch('updateLibrary', data)
+  })
+  socket.on('library-add', (newSong) => {
+    store.commit('addLibrary', newSong)
   })
   socket.on('lobby-state', (lobby) => {
     store.commit('setLobby', lobby)

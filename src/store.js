@@ -55,21 +55,25 @@ export const store = new Vuex.Store({
     removeLobbyUser (state, user) {
       state.lobby.users.splice(state.lobby.users.indexOf(user), 1)
     },
-    updateLibrary (state, payload) {
-      payload.forEach((song) => {  // TODO: Potential optimization here.
-        let librarySong = state.songLibrary.filter(s => (s.id === song.id))
-        if (librarySong.length === 0) {
-          state.songLibrary.push(song)
-        }
-      })
+    addLibrary (state, newSong) {
+      let librarySong = state.songLibrary.filter(s => (s.id === newSong.id))
+      if (librarySong.length === 0) {
+        state.songLibrary.push(newSong)
+      }
     }
   },
   actions: {
     async loadLibrary ({state}) {
       state.socket.emit('library-req')
     },
+    updateLibrary ({commit}, payload) {
+      payload.forEach((song) => commit('addLibrary', song))
+    },
     async auth ({dispatch, commit, state}, credentials) {
       await axios.post(state.API_ENDPOINT + 'auth', credentials, {withCredentials: true})
+      const audioListResponse = await axios.get(state.API_ENDPOINT + 'audio/list', {withCredentials: true})
+      let library = audioListResponse.data
+      dispatch('updateLibrary', library)
       state.socket.emit('auth', credentials)
     },
     async logout ({commit, state}) {
@@ -90,6 +94,9 @@ export const store = new Vuex.Store({
     },
     async loopSong ({state}, doLoop) {
       state.socket.emit('lobby-loop-song-req', doLoop)
+    },
+    async broadcastNewSong ({state}, newSong) {
+      state.socket.emit('lobby-song-broadcast-req', newSong)
     }
   }
 })

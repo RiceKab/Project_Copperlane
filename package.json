@@ -1,6 +1,6 @@
 {
   "name": "project-copperlane",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lobby for a shared audio experience.",
   "author": "KeChYaTa",
   "private": true,
@@ -16,7 +16,6 @@
     "socket.io-client": "^2.1.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vue-socket-io": "^0.3.2",
     "vuetify": "^1.0.0",
     "vuex": "^3.0.1"
   },

@@ -133,7 +133,6 @@
         if (song) {
           this.activeSongKey = song.id
           const sources = song.sources.map(src => this.$store.getters.API + src)
-          // TODO: In production can just be song.sources
           if (this.songObj) this.songObj.stop()
           this.songObj = new Howl({
             src: sources,

@@ -70,7 +70,10 @@
           formData.append('name', this.name)
           formData.append('file', this.selectedFile)
           axios.post(this.API + 'audio/upload', formData, {withCredentials: true})
-            .then((result) => {
+            .then((response) => {
+              let newSong = response.data
+              this.$store.commit('addLibrary', newSong)
+              this.$store.dispatch('broadcastNewSong', newSong)
               this.onClose()
             })
             .catch((err) => {
